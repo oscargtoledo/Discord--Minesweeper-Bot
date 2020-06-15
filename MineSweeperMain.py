@@ -82,12 +82,8 @@ async def mineSweeperGeneration(ctx, xSize, ySize, mineAmount):
         print("Mines remaining: " + str(mineAmount))
         xPos = random.randint(0,xSize-1)
         yPos = random.randint(0,ySize-1)
-        for x in table:
-            print()
-            for y in x:
-                print(y, end=" ")
-        print()
 
+        
         # if table[xPos][yPos] == -2:
         #     pass
         # elif table[xPos][yPos] == -1:
@@ -101,15 +97,12 @@ async def mineSweeperGeneration(ctx, xSize, ySize, mineAmount):
             #Banda derecha, derecha arriba y derecha abajo
             if xPos-1 >= 0:
                 wPos = table[xPos-1][yPos]
-                # table[xPos-1][yPos] = wPos + 1 if wPos >=0 else (1 if wPos != -2 else -2)
                 table[xPos-1][yPos] = incrementPos(wPos)
                 if yPos-1 >= 0:
                     nwPos = table[xPos-1][yPos-1]
-                    # table[xPos-1][yPos-1] = nwPos + 1 if nwPos >= 0 else (1 if nwPos != -2 else -2)
                     table[xPos-1][yPos-1] = incrementPos(nwPos)
                 if yPos+1 <= ySize-1:
                     swPos = table[xPos-1][yPos+1]
-                    # table[xPos-1][yPos+1] = swPos + 1 if swPos >= 0 else (1 if swPos != -2 else -2)
                     table[xPos-1][yPos+1] = incrementPos(swPos)
 
             #Banda izquierda, izquierda arriba y izquierda abajo
@@ -119,21 +112,16 @@ async def mineSweeperGeneration(ctx, xSize, ySize, mineAmount):
                 
                 
 
-                # table[xPos+1][yPos] = table[xPos+1][yPos] + 1 if table[xPos+1][yPos] >=0 else 1
                 table[xPos+1][yPos] = incrementPos(ePos)
                 if yPos-1 >= 0:
                     nePos = table[xPos+1][yPos-1]
-                    # table[xPos+1][yPos-1] = table[xPos+1][yPos-1] + 1 if table[xPos+1][yPos-1] >= 0 else 1
                     table[xPos+1][yPos-1] = incrementPos(nePos)
                 if yPos+1 <= ySize-1:
                     sePos = table[xPos+1][yPos+1]
-                    # table[xPos+1][yPos+1] = table[xPos+1][yPos+1] + 1 if table[xPos+1][yPos+1] >= 0 else 1
                     table[xPos+1][yPos+1] = incrementPos(sePos)
 
 
             #Arriba y abajo
-            
-            
             if yPos-1 >= 0:
                 tPos = table[xPos][yPos-1]
                 table[xPos][yPos-1] = incrementPos(tPos)
@@ -142,6 +130,8 @@ async def mineSweeperGeneration(ctx, xSize, ySize, mineAmount):
                 table[xPos][yPos+1] = incrementPos(sPos)
     
     await sendTable(ctx,table)
+    
+async def sendTable(ctx, table):
     # for x in table:
     #     print()
     #     for y in x:
@@ -149,49 +139,6 @@ async def mineSweeperGeneration(ctx, xSize, ySize, mineAmount):
     #         elif y == -1: print("O", end=" ")
     #         else: print(y, end = " ")
     #     print()
-   
-    # output = ""
-    # for x in table:
-    #     output += "\n"
-    #     for y in x:
-    #         if y == -2: output += "||:bomb:|| "
-    #         elif y == -1: output += "||:zero:|| "
-    #         else: 
-    #             number = "||:zero:||"
-    #             if y == 1:
-    #                 number = "||:one:||"
-    #             elif y == 2:
-    #                 number = "||:two:||"
-    #             elif y == 3:
-    #                 number = "||:three:||"
-    #             elif y == 4:
-    #                 number = "||:four:||"
-    #             elif y == 5:
-    #                 number = "||:five:||"
-    #             elif y == 6:
-    #                 number = "||:six:||"
-    #             elif y == 7:
-    #                 number = "||:seven:||"
-    #             elif y == 8:
-    #                 number = "||:eight:||"
-    #             elif y == 9:
-    #                 number = "||:nine:||"
-    #             else: pass
-    #             output += number + " "
-    #     if len(output) >= 1000:
-    #         await ctx.message.channel.send(output) 
-    #         output = ""
-    # if output != "":
-    #     await ctx.message.channel.send(output) 
-    
-async def sendTable(ctx, table):
-    for x in table:
-        print()
-        for y in x:
-            if y == -2: print("M", end=" ")
-            elif y == -1: print("O", end=" ")
-            else: print(y, end = " ")
-        print()
    
     output = ""
     for x in table:
